@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Cake.SvnStatusTest.Tests
 {
     [TestFixture]
-    public class SvnStatusTest
+    public class SvnTests
     {
         private FakeCakeContext _context;
 
@@ -15,7 +15,6 @@ namespace Cake.SvnStatusTest.Tests
         {
             _context = new FakeCakeContext();
         }
-
 
         [Test]
         public void GetSvnCommit()
@@ -39,21 +38,24 @@ namespace Cake.SvnStatusTest.Tests
             var result = _context.CakeContext.SvnVersion(@"C:\Westport\DOTNET2008\trunk");
             Assert.That(result, Is.Not.Null);
         }
+
         [Test]
         public void GetSvnStatus()
         {
             var result = _context.CakeContext.SvnStatus(@"C:\Westport\DOTNET2008\trunk");
             Assert.That(result, Is.EqualTo("1.1.2"));
         }
+
         [Test]
         public void GetSvnInfo()
         {
             var result = _context.CakeContext.SvnInfo(@"svn://10.10.1.103/westport/DOTNET2008/trunk",
-                @"C:\Westport\DOTNET2008\trunk\Setup\Cake Build\build.cake",              
+                @"C:\Westport\DOTNET2008\trunk\Setup\Cake Build\build.cake",
                 "ddbuild",
                 "p");
             Assert.That(result, Is.Not.Null);
         }
+
         [Test]
         public void GetSvnCheckout()
         {
@@ -63,6 +65,7 @@ namespace Cake.SvnStatusTest.Tests
                 "p");
             Assert.That(result, Is.Not.Null);
         }
+
         [Test]
         public void GetSvnExport()
         {
@@ -72,6 +75,7 @@ namespace Cake.SvnStatusTest.Tests
                 "p");
             Assert.That(result, Is.Not.Null);
         }
+
         [Test]
         public void GetSvnExportForce()
         {
@@ -82,6 +86,7 @@ namespace Cake.SvnStatusTest.Tests
                 "p");
             Assert.That(result, Is.Not.Null);
         }
+
         [Test]
         public void GetSvnCopy()
         {
@@ -90,6 +95,16 @@ namespace Cake.SvnStatusTest.Tests
                 @"svn://10.10.1.103/westport/DOTNET2008/trunk/Setup/Cake Build",
                 @"svn://10.10.1.103/westport/DOTNET2008/tags/Setup/Cake Build",
                 "mytagV1.0",
+                "ddbuild",
+                "p");
+            Assert.That(result, Is.Not.Null);
+        }
+
+        [Test]
+        public void GetSvnUpdate()
+        {
+            var result = _context.CakeContext.SvnUpdate(
+               @"C:\Westport\DOTNET2008\trunk\Setup\Cake Build",
                 "ddbuild",
                 "p");
             Assert.That(result, Is.Not.Null);
