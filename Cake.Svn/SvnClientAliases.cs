@@ -4,7 +4,6 @@ using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 using MSBuild.Community.Tasks.Subversion;
 using MSBuild.Community.Tasks.Xml;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -16,15 +15,15 @@ namespace Cake.Svn
     {
         [CakeMethodAlias]
         public static SvnResultsBase SvnUpdate(this ICakeContext context,
-            string localPath,           
-            string username, 
+            string localPath,
+            string username,
             string password)
         {
             SvnResultsBase results = new SvnResultsBase();
             SvnUpdate task = new SvnUpdate(context);
             task.Username = username;
             task.Password = password;
-            task.LocalPath = localPath;            
+            task.LocalPath = localPath;
 
             string actualCommand = GetToolTaskCommand(task);
             string actualCommand2 = GetToolTaskToolPath(task);
@@ -49,7 +48,8 @@ namespace Cake.Svn
             string SourcePath,
             string DestinationPath,
             string taglabel,
-            string username, string password)
+            string username,
+            string password)
         {
             SvnResultsBase results = new SvnResultsBase();
             SvnCopy task = new SvnCopy(context);
@@ -81,7 +81,8 @@ namespace Cake.Svn
         string repositorypath,
         string localPath,
         bool force,
-        string username, string password)
+        string username,
+        string password)
         {
             SvnResultsBase results = new SvnResultsBase();
             SvnExport task = new SvnExport(context);
@@ -112,7 +113,8 @@ namespace Cake.Svn
         public static SvnResultsBase SvnExport(this ICakeContext context,
             string repositorypath,
             string localPath,
-            string username, string password)
+            string username,
+            string password)
         {
             return SvnExport(context,
                 repositorypath,
@@ -122,7 +124,11 @@ namespace Cake.Svn
         }
 
         [CakeMethodAlias]
-        public static SvnResultsBase SvnCheckout(this ICakeContext context, string repositorypath, string localPath, string username, string password)
+        public static SvnResultsBase SvnCheckout(this ICakeContext context,
+            string repositorypath,
+            string localPath,
+            string username,
+            string password)
         {
             SvnResultsBase results = new SvnResultsBase();
             SvnCheckout task = new SvnCheckout(context);
@@ -149,7 +155,11 @@ namespace Cake.Svn
         }
 
         [CakeMethodAlias]
-        public static SvnInfoResults SvnInfo(this ICakeContext context, string repositorypath, string LocalPath, string username, string password)
+        public static SvnInfoResults SvnInfo(this ICakeContext context,
+            string repositorypath,
+            string LocalPath,
+            string username,
+            string password)
         {
             SvnInfoResults results = new SvnInfoResults();
             SvnInfo task = new SvnInfo(context);
@@ -158,6 +168,9 @@ namespace Cake.Svn
             task.RepositoryPath = repositorypath;
             task.LocalPath = LocalPath;
             //task.ToolPath = toolpath;// "\"" + toolpath + "\"";
+
+            string actualCommand = GetToolTaskCommand(task);
+            string actualCommand2 = GetToolTaskToolPath(task);
 
             var bOk = task.Execute();
             if (task.ExitCode != 0)
@@ -192,10 +205,13 @@ namespace Cake.Svn
         /// <param name="password">The password.</param>
         /// <returns></returns>
         [CakeMethodAlias]
-        public static SvnResultsBase SvnCommit(this ICakeContext context, string message, string localPath,
+        public static SvnResultsBase SvnCommit(this ICakeContext context,
+            string message,
+            string localPath,
             List<string> targetsinclude,
             //List<string> targetsexclude,
-            string username, string password)
+            string username,
+            string password)
         {
             SvnResultsBase results = new SvnResultsBase();
 
@@ -219,7 +235,11 @@ namespace Cake.Svn
 
             task.Targets = itemsTaskItems.ToArray();
 
+            string actualCommand = GetToolTaskCommand(task);
+            string actualCommand2 = GetToolTaskToolPath(task);
+
             var bOk = task.Execute();
+
             if (task.ExitCode != 0)
             {
                 //-- fail
@@ -235,19 +255,20 @@ namespace Cake.Svn
         }
 
         [CakeMethodAlias]
-        public static SvnResultsVersion SvnVersion(this ICakeContext context, string localPath)
+        public static SvnResultsVersion SvnVersion(this ICakeContext context,
+            string localPath)
         {
             SvnVersion task = new SvnVersion(context);
             task.LocalPath = localPath;
+
+            string actualCommand = GetToolTaskCommand(task);
+            string actualCommand2 = GetToolTaskToolPath(task);
+
             var bOk = task.Execute();
             if (task.ExitCode != 0)
             {
                 //-- fail
             }
-
-            string expectedCommand = String.Format("status \"{0}\" --xml --non-interactive --no-auth-cache", localPath);
-            string actualCommand = GetToolTaskCommand(task);
-            string actualCommand2 = GetToolTaskToolPath(task);
 
             return new SvnResultsVersion()
             {
@@ -260,62 +281,25 @@ namespace Cake.Svn
         }
 
         [CakeMethodAlias]
-        public static string SvnStatus(this ICakeContext context, string localPath)
+        public static string SvnStatus(this ICakeContext context,
+            string localPath)
         {
             List<SvnResultsStatus> results = new List<SvnResultsStatus>();
             SvnStatus task = new SvnStatus(context);
 
             task.LocalPath = localPath;
+
+            string actualCommand = GetToolTaskCommand(task);
+            string actualCommand2 = GetToolTaskToolPath(task);
+
             var bOk = task.Execute();
             if (task.StandardError.Length > 0)
             {
                 //-- fail
             }
 
-            string expectedCommand = String.Format("status \"{0}\" --xml --non-interactive --no-auth-cache", localPath);
-
-            string actualCommand = GetToolTaskCommand(task);
-            string actualCommand2 = GetToolTaskToolPath(task);
-
             return task.StandardOutput;
         }
-
-        //[CakeMethodAlias]
-        //public static List<SvnSvnStatusResults> SvnStatus(this ICakeContext context, string localPath)
-        //{
-        //    List<SvnSvnStatusResults> results = new List<SvnSvnStatusResults>();
-        //    SvnStatus task = new SvnStatus(context);
-
-        //    task.LocalPath = localPath;
-        //    var bOk = task.Execute();
-        //    if (task.StandardError.Length > 0)
-        //    {
-        //        //-- fail
-        //    }
-
-        //    string expectedCommand = String.Format("status \"{0}\" --xml --non-interactive --no-auth-cache", localPath);
-
-        //    string actualCommand = GetToolTaskCommand(task);
-        //    string actualCommand2 = GetToolTaskToolPath(task);
-
-        //    foreach (var item in task.Entries)
-        //    {
-        //        var newItem = new SvnSvnStatusResults();
-        //        newItem.ItemSpec = item.ItemSpec;
-        //        var c = item.CloneCustomMetadata();
-        //        var c2 = item.GetMetadata("Revision");
-        //        var e = item.MetadataNames.GetEnumerator();
-        //        while (e.MoveNext())
-        //        {
-        //            newItem.MetadataNames.Add(e.Current.ToString());
-        //        }
-
-        //        //newItem.MetadataNames = item.MetadataNames.ToArray();
-        //        results.Add(newItem);
-        //    }
-
-        //    return results;
-        //}
 
         /// <summary>
         /// Returns the command line with arguments that a ToolTask will execute
