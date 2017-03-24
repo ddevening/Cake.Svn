@@ -1,4 +1,5 @@
 #region Copyright © 2005 Paul Welter. All rights reserved.
+
 /*
 Copyright © 2005 Paul Welter. All rights reserved.
 
@@ -23,13 +24,11 @@ NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
 DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
 THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
-THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#endregion
 
-using System;
-using System.Collections.Generic;
-using System.Text;
+#endregion Copyright © 2005 Paul Welter. All rights reserved.
+
 using Cake.Core;
 
 namespace MSBuild.Community.Tasks.Subversion
@@ -41,8 +40,8 @@ namespace MSBuild.Community.Tasks.Subversion
     /// <code><![CDATA[
     /// <Target Name="Checkout">
     ///   <RemoveDir Directories="$(MSBuildProjectDirectory)\Test\Checkout" />
-    ///   <SvnCheckout RepositoryPath="file:///d:/svn/repo/Test/trunk" 
-    ///                LocalPath="$(MSBuildProjectDirectory)\Test\Checkout">      
+    ///   <SvnCheckout RepositoryPath="file:///d:/svn/repo/Test/trunk"
+    ///                LocalPath="$(MSBuildProjectDirectory)\Test\Checkout">
     ///     <Output TaskParameter="Revision" PropertyName="Revision" />
     ///   </SvnCheckout>
     ///   <Message Text="Revision: $(Revision)"/>

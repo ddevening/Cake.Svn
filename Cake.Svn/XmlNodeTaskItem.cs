@@ -1,8 +1,5 @@
-
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Build.Framework;
+using System.Collections.Generic;
 using System.Xml.XPath;
 
 namespace MSBuild.Community.Tasks.Xml
@@ -13,8 +10,8 @@ namespace MSBuild.Community.Tasks.Xml
     /// <exclude />
     public class XmlNodeTaskItem : ITaskItem
     {
-        Dictionary<string, string> metaData = new Dictionary<string, string>();
-        readonly string ReservedMetaDataPrefix;
+        private Dictionary<string, string> metaData = new Dictionary<string, string>();
+        private readonly string ReservedMetaDataPrefix;
 
         public XmlNodeTaskItem(string key, string data, string reservedMetaDataPrefix)
         {
@@ -29,8 +26,6 @@ namespace MSBuild.Community.Tasks.Xml
             //metaData.Add(ReservedMetaDataPrefix + "value", xpathNavigator.Value);
             //metaData.Add(ReservedMetaDataPrefix + "innerXml", xpathNavigator.InnerXml);
             //metaData.Add(ReservedMetaDataPrefix + "outerXml", xpathNavigator.OuterXml);
-
-
         }
 
         /// <summary>
@@ -47,6 +42,7 @@ namespace MSBuild.Community.Tasks.Xml
                 case XPathNodeType.Attribute:
                     itemSpec = xpathNavigator.Value;
                     break;
+
                 default:
                     itemSpec = xpathNavigator.Name;
                     break;
@@ -83,11 +79,10 @@ namespace MSBuild.Community.Tasks.Xml
             return taskItemToCast.ItemSpec;
         }
 
-
         #region ITaskItem Members
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public System.Collections.IDictionary CloneCustomMetadata()
@@ -96,7 +91,7 @@ namespace MSBuild.Community.Tasks.Xml
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="destinationItem"></param>
         public void CopyMetadataTo(ITaskItem destinationItem)
@@ -108,7 +103,7 @@ namespace MSBuild.Community.Tasks.Xml
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="metadataName"></param>
         /// <returns></returns>
@@ -118,8 +113,9 @@ namespace MSBuild.Community.Tasks.Xml
         }
 
         private string itemSpec;
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string ItemSpec
         {
@@ -134,7 +130,7 @@ namespace MSBuild.Community.Tasks.Xml
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public int MetadataCount
         {
@@ -142,7 +138,7 @@ namespace MSBuild.Community.Tasks.Xml
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public System.Collections.ICollection MetadataNames
         {
@@ -150,7 +146,7 @@ namespace MSBuild.Community.Tasks.Xml
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="metadataName"></param>
         public void RemoveMetadata(string metadataName)
@@ -159,7 +155,7 @@ namespace MSBuild.Community.Tasks.Xml
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="metadataName"></param>
         /// <param name="metadataValue"></param>
@@ -168,6 +164,6 @@ namespace MSBuild.Community.Tasks.Xml
             metaData[metadataName] = metadataValue;
         }
 
-        #endregion
+        #endregion ITaskItem Members
     }
 }

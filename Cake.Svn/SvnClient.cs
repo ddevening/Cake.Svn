@@ -320,13 +320,19 @@ namespace MSBuild.Community.Tasks.Subversion
             builder.Append(_command);
 
             if (!string.IsNullOrEmpty(_repositoryPath))
+            {
                 builder.AppendFormat(" \"{0}\"", _repositoryPath);
+            }
 
             if (!string.IsNullOrEmpty(_localPath))
+            {
                 builder.AppendFormat(" \"{0}\"", _localPath);
+            }
 
             if (_revision >= 0)
+            {
                 builder.AppendFormat(_switchValueFormat, "revision", _revision);
+            }
 
             if (_targets != null)
             {
@@ -337,7 +343,9 @@ namespace MSBuild.Community.Tasks.Subversion
             }
 
             if (!string.IsNullOrEmpty(_targetFile))
+            {
                 builder.AppendFormat(_switchStringFormat, "targets", _targetFile);
+            }
 
             return builder.ToString();
         }
@@ -351,43 +359,65 @@ namespace MSBuild.Community.Tasks.Subversion
             StringBuilder builder = new StringBuilder();
 
             if (!string.IsNullOrEmpty(_username))
+            {
                 builder.AppendFormat(_switchValueFormat, "username", _username);
+            }
 
             if (!string.IsNullOrEmpty(_password))
+            {
                 builder.AppendFormat(_switchValueFormat, "password", _password);
+            }
 
             if (!string.IsNullOrEmpty(_messageFile) && File.Exists(_messageFile))
+            {
                 builder.AppendFormat(_switchStringFormat, "file", _messageFile);
+            }
 
             if (!string.IsNullOrEmpty(_message))
+            {
                 builder.AppendFormat(_switchStringFormat, "message", _message);
+            }
 
             if (_force)
+            {
                 builder.AppendFormat(_switchBooleanFormat, "force");
+            }
 
             if (_verbose)
+            {
                 builder.AppendFormat(_switchBooleanFormat, "verbose");
+            }
 
             if (!string.IsNullOrEmpty(_arguments))
+            {
                 builder.AppendFormat(" {0}", _arguments);
+            }
 
             if (_xml)
+            {
                 builder.AppendFormat(_switchBooleanFormat, "xml");
+            }
 
             if (_nonInteractive)
+            {
                 builder.AppendFormat(_switchBooleanFormat, "non-interactive");
+            }
 
             if (_noAuthCache)
+            {
                 builder.AppendFormat(_switchBooleanFormat, "no-auth-cache");
+            }
 
             if (_trustServerCert)
+            {
                 builder.AppendFormat(_switchBooleanFormat, "trust-server-cert");
+            }
 
             return builder.ToString();
         }
 
         /// <summary>
-        /// Runs the exectuable file with the specified task parameters.
+        /// Runs the executable file with the specified task parameters.
         /// </summary>
         /// <returns>
         /// true if the task runs successfully; otherwise, false.
@@ -440,8 +470,15 @@ namespace MSBuild.Community.Tasks.Subversion
             // dont log xml messages
             if (!Xml || isError)
             {
-                //base.LogEventsFromTextOutput(singleLine, messageImportance);
-                CakeContext.Log.Write(Cake.Core.Diagnostics.Verbosity.Verbose, Cake.Core.Diagnostics.LogLevel.Information, singleLine);
+                if (isError)
+                {
+                    CakeContext.Log.Write(Cake.Core.Diagnostics.Verbosity.Normal, Cake.Core.Diagnostics.LogLevel.Error, singleLine);
+                }
+                else
+                {
+                    //base.LogEventsFromTextOutput(singleLine, messageImportance);
+                    CakeContext.Log.Write(Cake.Core.Diagnostics.Verbosity.Verbose, Cake.Core.Diagnostics.LogLevel.Information, singleLine);
+                }
             }
 
             // keep error output and standard output separated.
@@ -456,7 +493,9 @@ namespace MSBuild.Community.Tasks.Subversion
 
             Match revMatch = _revisionParse.Match(singleLine);
             if (revMatch.Success)
+            {
                 int.TryParse(revMatch.Value, out _revision);
+            }
         }
 
         /// <summary>
@@ -468,7 +507,9 @@ namespace MSBuild.Community.Tasks.Subversion
         protected override string GenerateFullPathToTool()
         {
             if (string.IsNullOrEmpty(ToolPath))
+            {
                 ToolPath = FindToolPath(ToolName);
+            }
 
             return Path.Combine(ToolPath, ToolName);
         }

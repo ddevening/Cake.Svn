@@ -2,7 +2,7 @@
 
 namespace Cake.Svn
 {
-    public class SvnVersionResults
+    public class SvnResultsVersion
     {
         public int Revision { get; set; }
         public int LowRevision { get; set; }

@@ -14,16 +14,44 @@ namespace Cake.Svn
     [CakeAliasCategory("SVN Tools")]
     public static class SvnClientAliases
     {
+        [CakeMethodAlias]
+        public static SvnResultsBase SvnUpdate(this ICakeContext context,
+            string localPath,           
+            string username, 
+            string password)
+        {
+            SvnResultsBase results = new SvnResultsBase();
+            SvnUpdate task = new SvnUpdate(context);
+            task.Username = username;
+            task.Password = password;
+            task.LocalPath = localPath;            
+
+            string actualCommand = GetToolTaskCommand(task);
+            string actualCommand2 = GetToolTaskToolPath(task);
+
+            var bOk = task.Execute();
+            if (task.ExitCode != 0)
+            {
+                //-- fail
+            }
+            results.RepositoryPath = task.RepositoryPath ?? "";
+            results.Revision = task.Revision;
+            results.StandardOutput = task.StandardOutput ?? "";
+            results.StandardError = task.StandardError ?? "";
+            results.ExitCode = task.ExitCode;
+
+            return results;
+        }
 
         [CakeMethodAlias]
-        public static SvnBaseResults SvnCopy(this ICakeContext context,
+        public static SvnResultsBase SvnCopy(this ICakeContext context,
             string message,
             string SourcePath,
             string DestinationPath,
             string taglabel,
             string username, string password)
         {
-            SvnBaseResults results = new SvnBaseResults();
+            SvnResultsBase results = new SvnResultsBase();
             SvnCopy task = new SvnCopy(context);
             task.Username = username;
             task.Password = password;
@@ -39,23 +67,23 @@ namespace Cake.Svn
             {
                 //-- fail
             }
-            results.RepositoryPath = task.RepositoryPath;
+            results.RepositoryPath = task.RepositoryPath ?? "";
             results.Revision = task.Revision;
-            results.StandardOutput = task.StandardOutput;
-            results.StandardError = task.StandardError;
+            results.StandardOutput = task.StandardOutput ?? "";
+            results.StandardError = task.StandardError ?? "";
             results.ExitCode = task.ExitCode;
 
             return results;
         }
 
         [CakeMethodAlias]
-        public static SvnBaseResults SvnExport(this ICakeContext context,
+        public static SvnResultsBase SvnExport(this ICakeContext context,
         string repositorypath,
         string localPath,
         bool force,
         string username, string password)
         {
-            SvnBaseResults results = new SvnBaseResults();
+            SvnResultsBase results = new SvnResultsBase();
             SvnExport task = new SvnExport(context);
             task.Username = username;
             task.Password = password;
@@ -71,17 +99,17 @@ namespace Cake.Svn
             {
                 //-- fail
             }
-            results.RepositoryPath = task.RepositoryPath;
+            results.RepositoryPath = task.RepositoryPath ?? "";
             results.Revision = task.Revision;
-            results.StandardOutput = task.StandardOutput;
-            results.StandardError = task.StandardError;
+            results.StandardOutput = task.StandardOutput ?? "";
+            results.StandardError = task.StandardError ?? "";
             results.ExitCode = task.ExitCode;
 
             return results;
         }
 
         [CakeMethodAlias]
-        public static SvnBaseResults SvnExport(this ICakeContext context,
+        public static SvnResultsBase SvnExport(this ICakeContext context,
             string repositorypath,
             string localPath,
             string username, string password)
@@ -94,9 +122,9 @@ namespace Cake.Svn
         }
 
         [CakeMethodAlias]
-        public static SvnBaseResults SvnCheckout(this ICakeContext context, string repositorypath, string localPath, string username, string password)
+        public static SvnResultsBase SvnCheckout(this ICakeContext context, string repositorypath, string localPath, string username, string password)
         {
-            SvnBaseResults results = new SvnBaseResults();
+            SvnResultsBase results = new SvnResultsBase();
             SvnCheckout task = new SvnCheckout(context);
             task.Username = username;
             task.Password = password;
@@ -111,10 +139,10 @@ namespace Cake.Svn
             {
                 //-- fail
             }
-            results.RepositoryPath = task.RepositoryPath;
+            results.RepositoryPath = task.RepositoryPath ?? "";
             results.Revision = task.Revision;
-            results.StandardOutput = task.StandardOutput;
-            results.StandardError = task.StandardError;
+            results.StandardOutput = task.StandardOutput ?? "";
+            results.StandardError = task.StandardError ?? "";
             results.ExitCode = task.ExitCode;
 
             return results;
@@ -136,10 +164,10 @@ namespace Cake.Svn
             {
                 //-- fail
             }
-            results.RepositoryPath = task.RepositoryPath;
+            results.RepositoryPath = task.RepositoryPath ?? "";
             results.Revision = task.Revision;
-            results.StandardOutput = task.StandardOutput;
-            results.StandardError = task.StandardError;
+            results.StandardOutput = task.StandardOutput ?? "";
+            results.StandardError = task.StandardError ?? "";
             results.ExitCode = task.ExitCode;
 
             results.LastChangedAuthor = task.LastChangedAuthor;
@@ -164,12 +192,12 @@ namespace Cake.Svn
         /// <param name="password">The password.</param>
         /// <returns></returns>
         [CakeMethodAlias]
-        public static SvnBaseResults SvnCommit(this ICakeContext context, string message, string localPath,
+        public static SvnResultsBase SvnCommit(this ICakeContext context, string message, string localPath,
             List<string> targetsinclude,
             //List<string> targetsexclude,
             string username, string password)
         {
-            SvnBaseResults results = new SvnBaseResults();
+            SvnResultsBase results = new SvnResultsBase();
 
             SvnCommit task = new SvnCommit(context);
             task.LocalPath = localPath;
@@ -197,17 +225,17 @@ namespace Cake.Svn
                 //-- fail
             }
 
-            results.RepositoryPath = task.RepositoryPath;
+            results.RepositoryPath = task.RepositoryPath ?? "";
             results.Revision = task.Revision;
-            results.StandardOutput = task.StandardOutput;
-            results.StandardError = task.StandardError;
+            results.StandardOutput = task.StandardOutput ?? "";
+            results.StandardError = task.StandardError ?? "";
             results.ExitCode = task.ExitCode;
 
             return results;
         }
 
         [CakeMethodAlias]
-        public static SvnVersionResults SvnVersion(this ICakeContext context, string localPath)
+        public static SvnResultsVersion SvnVersion(this ICakeContext context, string localPath)
         {
             SvnVersion task = new SvnVersion(context);
             task.LocalPath = localPath;
@@ -221,7 +249,7 @@ namespace Cake.Svn
             string actualCommand = GetToolTaskCommand(task);
             string actualCommand2 = GetToolTaskToolPath(task);
 
-            return new SvnVersionResults()
+            return new SvnResultsVersion()
             {
                 Exported = task.Exported,
                 LowRevision = task.LowRevision,
@@ -234,7 +262,7 @@ namespace Cake.Svn
         [CakeMethodAlias]
         public static string SvnStatus(this ICakeContext context, string localPath)
         {
-            List<SvnSvnStatusResults> results = new List<SvnSvnStatusResults>();
+            List<SvnResultsStatus> results = new List<SvnResultsStatus>();
             SvnStatus task = new SvnStatus(context);
 
             task.LocalPath = localPath;

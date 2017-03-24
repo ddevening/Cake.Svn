@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using Microsoft.Win32;
+using System;
+using System.IO;
 
 namespace MSBuild.Community.Tasks
 {
@@ -12,7 +10,7 @@ namespace MSBuild.Community.Tasks
         {
             return SafeFileExists(Path.Combine(path, toolName));
         }
-        
+
         public static bool SafeFileExists(string file)
         {
             try { return File.Exists(file); }

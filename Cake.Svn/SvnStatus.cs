@@ -24,17 +24,17 @@ NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
 DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
 THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
-THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#endregion
+#endregion Copyright © 2010 MSBuild Community Task Project. All rights reserved.
 
+using Cake.Core;
+using Microsoft.Build.Framework;
+using Microsoft.Build.Utilities;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-using Microsoft.Build.Framework;
-using Microsoft.Build.Utilities;
-using Cake.Core;
 
 namespace MSBuild.Community.Tasks.Subversion
 {
@@ -55,7 +55,7 @@ namespace MSBuild.Community.Tasks.Subversion
         }
 
         /// <summary>
-        /// Runs the exectuable file with the specified task parameters.
+        /// Runs the executable file with the specified task parameters.
         /// </summary>
         /// <returns>
         /// true if the task runs successfully; otherwise, false.

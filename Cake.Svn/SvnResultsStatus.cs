@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Cake.Svn
 {
-    public class SvnSvnStatusResults : SvnBaseResults
+    public class SvnResultsStatus : SvnResultsBase
     {
-        public SvnSvnStatusResults()
+        public SvnResultsStatus()
         {
             ItemSpec = "";
             MetadataNames = new List<string>();

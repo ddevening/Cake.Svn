@@ -4,8 +4,6 @@ using System;
 using System.IO;
 using System.Xml;
 
-// $Id: SvnCheckout.cs 102 2006-01-09 18:01:13Z iko $
-
 namespace MSBuild.Community.Tasks.Subversion
 {
     /// <summary>
@@ -150,7 +148,9 @@ namespace MSBuild.Community.Tasks.Subversion
             var result = base.Execute();
 
             if (result)
+            {
                 Parse();
+            }
 
             return result;
         }
@@ -160,11 +160,13 @@ namespace MSBuild.Community.Tasks.Subversion
             using (var sr = new StringReader(StandardOutput))
             using (var reader = XmlReader.Create(sr))
             {
-                // since no names are dulicated we can read as flat xml file
+                // since no names are duplicated we can read as flat xml file
                 while (reader.Read())
                 {
                     if (reader.NodeType != XmlNodeType.Element)
+                    {
                         continue;
+                    }
 
                     string name = reader.Name;
 

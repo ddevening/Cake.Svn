@@ -211,7 +211,7 @@ namespace MSBuild.Community.Tasks.Subversion
         }
 
         /// <summary>
-        /// Runs the exectuable file with the specified task parameters.
+        /// Runs the executable file with the specified task parameters.
         /// </summary>
         /// <returns>
         /// true if the task runs successfully; otherwise, false.

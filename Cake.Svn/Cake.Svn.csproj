@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="SvnResultsBase.cs" />
     <Compile Include="SvnClientAliases.cs" />
     <Compile Include="Info.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,9 +65,9 @@
     <Compile Include="SvnStatus.cs" />
     <Compile Include="SvnUpdate.cs" />
     <Compile Include="SvnVersion.cs" />
-    <Compile Include="SvnStatusResults.cs" />
+    <Compile Include="SvnResultsStatus.cs" />
     <Compile Include="SvnInfoResults.cs" />
-    <Compile Include="SvnVersionResults.cs" />
+    <Compile Include="SvnResultsVersion.cs" />
     <Compile Include="ToolPathUtil.cs" />
     <Compile Include="XmlNodeTaskItem.cs" />
   </ItemGroup>

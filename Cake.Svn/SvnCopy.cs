@@ -1,4 +1,5 @@
 #region Copyright © 2007 Geoff Lane. All rights reserved.
+
 /*
 Copyright © 2007 Geoff Lane <geoff@zorched.net>. All rights reserved.
 
@@ -23,14 +24,13 @@ NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
 DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
 THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
-THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#endregion
+
+#endregion Copyright © 2007 Geoff Lane. All rights reserved.
 
 using Cake.Core;
 using System;
-
-
 
 namespace MSBuild.Community.Tasks.Subversion
 {
@@ -38,15 +38,15 @@ namespace MSBuild.Community.Tasks.Subversion
     /// Copy a file or folder in Subversion
     /// </summary>
     /// <remarks>
-    /// This is most useful for automatically tagging your source code during a build. 
+    /// This is most useful for automatically tagging your source code during a build.
     /// You can create a tag by copying a path from one server location to another.
     /// </remarks>
     /// <example>Create a tag of the trunk with the current Cruise Control build number:
     /// <code><![CDATA[
     /// <Target Name="TagTheBuild">
     ///   <SvnCopy SourcePath="file:///d:/svn/repo/Test/trunk"
-    ///            DestinationPath="file:///d:/svn/repo/Test/tags/BUILD-$(CCNetLabel)" 
-    ///            Message="Automatic build of $(CCNetProject)" />      
+    ///            DestinationPath="file:///d:/svn/repo/Test/tags/BUILD-$(CCNetLabel)"
+    ///            Message="Automatic build of $(CCNetProject)" />
     /// </Target>
     /// ]]></code>
     /// </example>
@@ -63,6 +63,7 @@ namespace MSBuild.Community.Tasks.Subversion
         }
 
         private string sourcePath;
+
         /// <summary>
         /// The path of the source file or folder that should be copied
         /// </summary>
@@ -73,6 +74,7 @@ namespace MSBuild.Community.Tasks.Subversion
         }
 
         private string destinationPath;
+
         /// <summary>
         /// The path to which the SourcePath should be copied
         /// </summary>
@@ -83,8 +85,9 @@ namespace MSBuild.Community.Tasks.Subversion
         }
 
         private bool buildTree;
+
         /// <summary>
-        /// Specifies whether to create any missing directories and subdirectories 
+        /// Specifies whether to create any missing directories and subdirectories
         /// in the specified <see cref="DestinationPath"/>
         /// </summary>
         public bool BuildTree
@@ -92,7 +95,6 @@ namespace MSBuild.Community.Tasks.Subversion
             get { return buildTree; }
             set { buildTree = value; }
         }
-
 
         /// <summary>
         /// Generates the SVN command.
