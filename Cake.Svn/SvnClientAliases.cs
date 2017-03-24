@@ -6,6 +6,7 @@ using MSBuild.Community.Tasks.Subversion;
 using MSBuild.Community.Tasks.Xml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 
 namespace Cake.Svn
@@ -13,6 +14,40 @@ namespace Cake.Svn
     [CakeAliasCategory("SVN Tools")]
     public static class SvnClientAliases
     {
+
+        [CakeMethodAlias]
+        public static SvnBaseResults SvnCopy(this ICakeContext context,
+            string message,
+            string SourcePath,
+            string DestinationPath,
+            string taglabel,
+            string username, string password)
+        {
+            SvnBaseResults results = new SvnBaseResults();
+            SvnCopy task = new SvnCopy(context);
+            task.Username = username;
+            task.Password = password;
+            task.SourcePath = SourcePath;
+            task.DestinationPath = DestinationPath;
+            task.Message = message;
+
+            string actualCommand = GetToolTaskCommand(task);
+            string actualCommand2 = GetToolTaskToolPath(task);
+
+            var bOk = task.Execute();
+            if (task.ExitCode != 0)
+            {
+                //-- fail
+            }
+            results.RepositoryPath = task.RepositoryPath;
+            results.Revision = task.Revision;
+            results.StandardOutput = task.StandardOutput;
+            results.StandardError = task.StandardError;
+            results.ExitCode = task.ExitCode;
+
+            return results;
+        }
+
         [CakeMethodAlias]
         public static SvnBaseResults SvnExport(this ICakeContext context,
         string repositorypath,
@@ -125,14 +160,13 @@ namespace Cake.Svn
         /// <param name="message">The message.</param>
         /// <param name="localPath">The local path.</param>
         /// <param name="targetsinclude">The targetsinclude.</param>
-        /// <param name="targetsexclude">The targetsexclude.</param>
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
         /// <returns></returns>
         [CakeMethodAlias]
         public static SvnBaseResults SvnCommit(this ICakeContext context, string message, string localPath,
             List<string> targetsinclude,
-            List<string> targetsexclude,
+            //List<string> targetsexclude,
             string username, string password)
         {
             SvnBaseResults results = new SvnBaseResults();
@@ -147,12 +181,13 @@ namespace Cake.Svn
 
             foreach (var target in targetsinclude)
             {
-                itemsTaskItems.Add(new XmlNodeTaskItem("Include", target, "ToCommit"));
+                var targetPath = Path.Combine(localPath, target);
+                itemsTaskItems.Add(new XmlNodeTaskItem("Include", targetPath, "ToCommit"));
             }
-            foreach (var target in targetsexclude)
-            {
-                itemsTaskItems.Add(new XmlNodeTaskItem("Exclude", target, "ToCommit"));
-            }
+            //foreach (var target in targetsexclude)
+            //{
+            //    itemsTaskItems.Add(new XmlNodeTaskItem("Exclude", target, "ToCommit"));
+            //}
 
             task.Targets = itemsTaskItems.ToArray();
 

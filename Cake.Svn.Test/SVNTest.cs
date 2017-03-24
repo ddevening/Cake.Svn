@@ -21,13 +21,13 @@ namespace Cake.SvnStatusTest.Tests
         public void GetSvnCommit()
         {
             List<string> Includelist = new List<string>();
-            Includelist.Add(@"C:\Westport\DOTNET2008\trunk\Setup\Cake Build\build.cake");
+            Includelist.Add(@"build.cake");
             List<string> ExcludeList = new List<string>();
 
-            var result = _context.CakeContext.SvnCommit("Test Commit",
+            var result = _context.CakeContext.SvnCommit("Test Commit - Cake Build",
                 @"C:\Westport\DOTNET2008\trunk\Setup\Cake Build",
                 Includelist,
-                ExcludeList,
+                //ExcludeList,
                 "ddbuild",
                 "p");
             Assert.That(result, Is.Not.Null);
@@ -78,6 +78,18 @@ namespace Cake.SvnStatusTest.Tests
             var result = _context.CakeContext.SvnExport(@"svn://10.10.1.103/westport/DOTNET2008/trunk/Setup/Cake Build",
                 @"F:\dd-cakeaddin\Cake.Svn\Westport",
                 true,
+                "ddbuild",
+                "p");
+            Assert.That(result, Is.Not.Null);
+        }
+        [Test]
+        public void GetSvnCopy()
+        {
+            var result = _context.CakeContext.SvnCopy(
+                "tag Cake Build",
+                @"svn://10.10.1.103/westport/DOTNET2008/trunk/Setup/Cake Build",
+                @"svn://10.10.1.103/westport/DOTNET2008/tags/Setup/Cake Build",
+                "mytagV1.0",
                 "ddbuild",
                 "p");
             Assert.That(result, Is.Not.Null);
