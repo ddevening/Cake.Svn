@@ -1,0 +1,7 @@
+F:\dd-cakeaddin\Cake.Svn\Cake.Svn\bin\Debug\Cake.Svn.dll
+F:\dd-cakeaddin\Cake.Svn\Cake.Svn\bin\Debug\Cake.Svn.pdb
+F:\dd-cakeaddin\Cake.Svn\Cake.Svn\bin\Debug\Cake.Core.dll
+F:\dd-cakeaddin\Cake.Svn\Cake.Svn\bin\Debug\Cake.Core.xml
+F:\dd-cakeaddin\Cake.Svn\Cake.Svn\obj\Debug\Cake.Svn.dll
+F:\dd-cakeaddin\Cake.Svn\Cake.Svn\obj\Debug\Cake.Svn.pdb
+F:\dd-cakeaddin\Cake.Svn\Cake.Svn\obj\Debug\Cake.Svn.csprojResolveAssemblyReference.cache
