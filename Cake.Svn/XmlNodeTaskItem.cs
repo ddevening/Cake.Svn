@@ -28,37 +28,37 @@ namespace MSBuild.Community.Tasks.Xml
             //metaData.Add(ReservedMetaDataPrefix + "outerXml", xpathNavigator.OuterXml);
         }
 
-        /// <summary>
-        /// Initializes a new instance of an XmlNodeTaskItem
-        /// </summary>
-        /// <param name="xpathNavigator">The selected XmlNode</param>
-        /// <param name="reservedMetaDataPrefix">The prefix to attach to the reserved metadata properties.</param>
-        public XmlNodeTaskItem(XPathNavigator xpathNavigator, string reservedMetaDataPrefix)
-        {
-            this.ReservedMetaDataPrefix = reservedMetaDataPrefix;
+        ///// <summary>
+        ///// Initializes a new instance of an XmlNodeTaskItem
+        ///// </summary>
+        ///// <param name="xpathNavigator">The selected XmlNode</param>
+        ///// <param name="reservedMetaDataPrefix">The prefix to attach to the reserved metadata properties.</param>
+        //public XmlNodeTaskItem(XPathNavigator xpathNavigator, string reservedMetaDataPrefix)
+        //{
+        //    this.ReservedMetaDataPrefix = reservedMetaDataPrefix;
 
-            switch (xpathNavigator.NodeType)
-            {
-                case XPathNodeType.Attribute:
-                    itemSpec = xpathNavigator.Value;
-                    break;
+        //    switch (xpathNavigator.NodeType)
+        //    {
+        //        case XPathNodeType.Attribute:
+        //            itemSpec = xpathNavigator.Value;
+        //            break;
 
-                default:
-                    itemSpec = xpathNavigator.Name;
-                    break;
-            }
-            metaData.Add(ReservedMetaDataPrefix + "value", xpathNavigator.Value);
-            metaData.Add(ReservedMetaDataPrefix + "innerXml", xpathNavigator.InnerXml);
-            metaData.Add(ReservedMetaDataPrefix + "outerXml", xpathNavigator.OuterXml);
+        //        default:
+        //            itemSpec = xpathNavigator.Name;
+        //            break;
+        //    }
+        //    metaData.Add(ReservedMetaDataPrefix + "value", xpathNavigator.Value);
+        //    metaData.Add(ReservedMetaDataPrefix + "innerXml", xpathNavigator.InnerXml);
+        //    metaData.Add(ReservedMetaDataPrefix + "outerXml", xpathNavigator.OuterXml);
 
-            if (xpathNavigator.MoveToFirstAttribute())
-            {
-                do
-                {
-                    metaData.Add(xpathNavigator.Name, xpathNavigator.Value);
-                } while (xpathNavigator.MoveToNextAttribute());
-            }
-        }
+        //    if (xpathNavigator.MoveToFirstAttribute())
+        //    {
+        //        do
+        //        {
+        //            metaData.Add(xpathNavigator.Name, xpathNavigator.Value);
+        //        } while (xpathNavigator.MoveToNextAttribute());
+        //    }
+        //}
 
         /// <summary>
         /// Returns a string representation of the XmlNodeTaskItem.

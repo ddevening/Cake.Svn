@@ -56,7 +56,6 @@
     <Compile Include="SvnCopy.cs" />
     <Compile Include="SvnExport.cs" />
     <Compile Include="SvnInfo.cs" />
-    <Compile Include="SvnSettings.cs" />
     <Compile Include="SvnStatus.cs" />
     <Compile Include="SvnUpdate.cs" />
     <Compile Include="SvnVersion.cs" />
