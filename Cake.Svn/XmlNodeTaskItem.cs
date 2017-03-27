@@ -20,7 +20,7 @@ namespace MSBuild.Community.Tasks.Xml
             itemSpec = data;
 
             metaData.Add(ReservedMetaDataPrefix + "value", key);
-            metaData.Add(ReservedMetaDataPrefix + "innerXml", data);
+            //metaData.Add(ReservedMetaDataPrefix + "innerXml", data);
             //metaData.Add(ReservedMetaDataPrefix + "outerXml", xpathNavigator.OuterXml);
 
             //metaData.Add(ReservedMetaDataPrefix + "value", xpathNavigator.Value);

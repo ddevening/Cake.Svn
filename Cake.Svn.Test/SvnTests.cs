@@ -33,6 +33,18 @@ namespace Cake.SvnStatusTest.Tests
         }
 
         [Test]
+        public void GetSvnAdd()
+        {
+            List<string> Includelist = new List<string>();
+            Includelist.Add(@"junk.txt");
+
+            var result = _context.CakeContext.SvnAdd(
+                @"C:\Westport\DOTNET2008\trunk\Setup\Cake Build",
+                Includelist);
+            Assert.That(result, Is.Not.Null);
+        }
+
+        [Test]
         public void GetSvnVersion()
         {
             var result = _context.CakeContext.SvnVersion(@"C:\Westport\DOTNET2008\trunk");
@@ -47,22 +59,24 @@ namespace Cake.SvnStatusTest.Tests
         }
 
         [Test]
+        public void GetSvnInfoFile()
+        {
+            var result = _context.CakeContext.SvnInfo(@"C:\Westport\DOTNET2008\trunk\Setup\Cake Build\build.cake");
+            Assert.That(result, Is.Not.Null);
+        }
+        [Test]
         public void GetSvnInfo()
         {
-            var result = _context.CakeContext.SvnInfo(@"svn://10.10.1.103/westport/DOTNET2008/trunk",
-                @"C:\Westport\DOTNET2008\trunk\Setup\Cake Build\build.cake",
-                "ddbuild",
-                "p");
+            var result = _context.CakeContext.SvnInfo(@"C:\Westport\DOTNET2008\trunk\Setup\Cake Build");
             Assert.That(result, Is.Not.Null);
         }
 
         [Test]
         public void GetSvnCheckout()
         {
-            var result = _context.CakeContext.SvnCheckout(@"svn://10.10.1.103/westport/DOTNET2008/trunk/Setup/Cake Build",
-                @"F:\dd-cakeaddin\Cake.Svn\Westport",
-                "ddbuild",
-                "p");
+            var result =
+                _context.CakeContext.SvnCheckout(@"svn://10.10.1.103/westport/DOTNET2008/trunk/Setup/Cake Build",
+                    @"F:\dd-cakeaddin\Cake.Svn\Westport");
             Assert.That(result, Is.Not.Null);
         }
 
@@ -103,10 +117,12 @@ namespace Cake.SvnStatusTest.Tests
         [Test]
         public void GetSvnUpdate()
         {
+            //var result1 =_context.CakeContext.SvnCheckout(@"svn://10.10.1.103/westport/DOTNET2008/trunk/Setup/Cake Build",
+            //    @"F:\dd-cakeaddin\Cake.Svn\Westport");
+            //var result = _context.CakeContext.SvnUpdate(
+            //    @"C:\Westport\DOTNET2008\trunk\Setup\Cake Build");
             var result = _context.CakeContext.SvnUpdate(
-               @"C:\Westport\DOTNET2008\trunk\Setup\Cake Build",
-                "ddbuild",
-                "p");
+                    @"F:\dd-cakeaddin\Cake.Svn\Westport");
             Assert.That(result, Is.Not.Null);
         }
     }

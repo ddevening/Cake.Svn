@@ -9,5 +9,6 @@ namespace Cake.Svn
         public bool Modifications { get; set; }
         public bool Switched { get; set; }
         public bool Exported { get; set; }
+        public int ExitCode { get; set; }
     }
 }
