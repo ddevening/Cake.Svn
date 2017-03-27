@@ -1,9 +1,7 @@
-
-
-using System;
-using System.IO;
 using MSBuild.Community.Tasks.Subversion;
 using NUnit.Framework;
+using System;
+using System.IO;
 
 namespace MSBuild.Community.Tasks.Tests.Subversion
 {
@@ -15,6 +13,7 @@ namespace MSBuild.Community.Tasks.Tests.Subversion
     {
         private string testDirectory;
         private Cake.VersionReader.Tests.Fakes.FakeCakeContext _context;
+
         [OneTimeSetUp]
         public void FixtureInit()
         {
@@ -24,11 +23,10 @@ namespace MSBuild.Community.Tasks.Tests.Subversion
             _context = new Cake.VersionReader.Tests.Fakes.FakeCakeContext();
         }
 
-
-        [Test(Description="Checkout local repository")]
+        [Test(Description = "Checkout local repository")]
         public void SvnCheckoutLocal()
         {
-            string repoPath = "d:/svn/repo/Test";
+            string repoPath = "e:/svn/repo/Test";
             DirectoryInfo dirInfo = new DirectoryInfo(repoPath);
             if (!dirInfo.Exists)
             {
@@ -48,7 +46,7 @@ namespace MSBuild.Community.Tasks.Tests.Subversion
             Assert.IsTrue(checkout.Revision > 0);
         }
 
-        [Test(Description="Checkout remote repository")]
+        [Test(Description = "Checkout remote repository")]
         public void SvnCheckoutRemote()
         {
             var context = new Cake.VersionReader.Tests.Fakes.FakeCakeContext();

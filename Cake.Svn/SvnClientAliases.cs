@@ -255,6 +255,41 @@ namespace Cake.Svn
 
         [CakeMethodAlias]
         public static SvnResultsBase SvnAdd(this ICakeContext context,
+        string localPath)
+
+        {
+            SvnResultsBase results = new SvnResultsBase();
+
+            SvnAdd task = new SvnAdd(context)
+            {
+                //LocalPath = localPath,
+            };
+
+            var itemsTaskItems = new List<ITaskItem>();
+            itemsTaskItems.Add(new XmlNodeTaskItem("Include", localPath, "ToCommit"));
+            task.Targets = itemsTaskItems.ToArray();
+
+            string actualCommand = GetToolTaskCommand(task);
+            string actualCommand2 = GetToolTaskToolPath(task);
+
+            var bOk = task.Execute();
+
+            if (task.ExitCode != 0)
+            {
+                //-- fail
+            }
+
+            results.RepositoryPath = task.RepositoryPath ?? "";
+            results.Revision = task.Revision;
+            results.StandardOutput = task.StandardOutput ?? "";
+            results.StandardError = task.StandardError ?? "";
+            results.ExitCode = task.ExitCode;
+
+            return results;
+        }
+
+        [CakeMethodAlias]
+        public static SvnResultsBase SvnAdd(this ICakeContext context,
             string localPath,
             List<string> targetsinclude)
     
@@ -263,14 +298,14 @@ namespace Cake.Svn
 
             SvnAdd task = new SvnAdd(context)
             {
-                LocalPath = localPath,
+                //LocalPath = localPath,
             };
 
             var itemsTaskItems = new List<ITaskItem>();
 
             foreach (var target in targetsinclude)
             {
-                var targetPath = target;
+                var targetPath = Path.Combine(localPath, target);
                 itemsTaskItems.Add(new XmlNodeTaskItem("Include", targetPath, "ToCommit"));
             }
 
@@ -294,6 +329,7 @@ namespace Cake.Svn
 
             return results;
         }
+
         [CakeMethodAlias]
         public static SvnResultsVersion SvnVersion(this ICakeContext context,
             string localPath)

@@ -43,6 +43,15 @@ namespace Cake.SvnStatusTest.Tests
                 Includelist);
             Assert.That(result, Is.Not.Null);
         }
+        [Test]
+        public void GetSvnAddFolder()
+        {
+            var result = _context.CakeContext.SvnAdd(
+                @"C:\Westport\DOTNET2008\trunk\Setup\Cake Build\bak");
+            Assert.That(result, Is.Not.Null);
+        }
+
+        
 
         [Test]
         public void GetSvnVersion()
