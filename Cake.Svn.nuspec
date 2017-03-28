@@ -1,0 +1,25 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Cake.Svn</id>
+    <version>$version$</version>
+    <title>Cake.Svn</title>
+    <authors>David Devening</authors>
+    <owners>David Devening, cake-contrib</owners>
+    <iconUrl>https://github.com/cake-build/graphics/raw/master/png/cake-small.png</iconUrl>
+    <projectUrl>https://github.com/ddevening/Cake.Svn</projectUrl>
+    <licenseUrl>https://opensource.org/licenses/MPL-2.0</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Provides experimental extensions and additional aliases for Cake.Build scripts</description>
+    <releaseNotes>Initial Release</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>Cake Build Script Extensions Project Solution</tags>
+    <dependencies>
+      <dependency id="Cake.Core" version="0.18.0" />
+    </dependencies>
+  </metadata>
+     <files>
+		<file src="Cake.Svn\bin\Release\Cake.Svn.dll" target="lib\net45\Cake.Svn.dll" />
+      <file src="Cake.Svn\bin\Release\Cake.Svn.XML" target="lib\net45\Cake.Svn.XML" />
+   </files>
+</package>
