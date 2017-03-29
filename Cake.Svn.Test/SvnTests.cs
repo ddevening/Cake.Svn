@@ -21,14 +21,25 @@ namespace Cake.SvnStatusTest.Tests
         {
             List<string> Includelist = new List<string>();
             Includelist.Add(@"build.cake");
-            List<string> ExcludeList = new List<string>();
 
             var result = _context.CakeContext.SvnCommit("Test Commit - Cake Build",
                 @"C:\Westport\DOTNET2008\trunk\Setup\Cake Build",
                 Includelist,
-                //ExcludeList,
                 "ddbuild",
                 "p");
+            Assert.That(result, Is.Not.Null);
+        }
+
+        [Test]
+        public void GetSvnCommit2()
+        {
+            List<string> Includelist = new List<string>();
+            Includelist.Add(@"build.cake");
+
+            var result = _context.CakeContext.SvnCommit("Test Commit - Cake Build",
+                @"C:\Westport\DOTNET2008\trunk\Setup\Cake Build",
+                Includelist);
+
             Assert.That(result, Is.Not.Null);
         }
 

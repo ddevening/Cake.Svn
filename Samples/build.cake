@@ -22,6 +22,18 @@ Task("Default")
 
   Information("SVN Version " + svnVersion.Revision);
   Information("SVN Version Dump" + svnVersion.Dump());
+
+  List<string> Includelist = new List<string>();
+  Includelist.Add(@"build.cake");
+
+  var resultCommit = SvnCommit("UPDATE: Test Commit - Cake Build",
+                @"C:\Westport\DOTNET2008\trunk\Setup\Cake Build",
+                Includelist,                
+                "ddbuild",
+                "p");
+ 
+  Information("SVN Commit Dump" + resultCommit.Dump());                
+
 });
 
 RunTarget(target);

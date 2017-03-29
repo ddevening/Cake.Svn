@@ -225,12 +225,67 @@ namespace Cake.Svn
             foreach (var target in targetsinclude)
             {
                 var targetPath = Path.Combine(localPath, target);
-                itemsTaskItems.Add(new XmlNodeTaskItem("Include", targetPath, "ToCommit"));
+                if (File.Exists(targetPath))
+                {
+                    itemsTaskItems.Add(new XmlNodeTaskItem("Include", targetPath, "ToCommit"));
+                }
+                else if (File.Exists(target))
+                {
+                    itemsTaskItems.Add(new XmlNodeTaskItem("Include", target, "ToCommit"));
+                }
+                //itemsTaskItems.Add(new XmlNodeTaskItem("Include", targetPath, "ToCommit"));
             }
-            //foreach (var target in targetsexclude)
-            //{
-            //    itemsTaskItems.Add(new XmlNodeTaskItem("Exclude", target, "ToCommit"));
-            //}
+
+            task.Targets = itemsTaskItems.ToArray();
+
+            string actualCommand = GetToolTaskCommand(task);
+            string actualCommand2 = GetToolTaskToolPath(task);
+
+            var bOk = task.Execute();
+
+            if (task.ExitCode != 0)
+            {
+                //-- fail
+            }
+
+            results.RepositoryPath = task.RepositoryPath ?? "";
+            results.Revision = task.Revision;
+            results.StandardOutput = task.StandardOutput ?? "";
+            results.StandardError = task.StandardError ?? "";
+            results.ExitCode = task.ExitCode;
+
+            return results;
+        }
+
+        [CakeMethodAlias]
+        public static SvnResultsBase SvnCommit(this ICakeContext context,
+            string message,
+            string localPath,
+            List<string> targetsinclude)
+        {
+            SvnResultsBase results = new SvnResultsBase();
+
+            SvnCommit task = new SvnCommit(context)
+            {
+                LocalPath = localPath,
+                Message = message,
+            };
+
+            var itemsTaskItems = new List<ITaskItem>();
+
+            foreach (var target in targetsinclude)
+            {
+                var targetPath = Path.Combine(localPath, target);
+                if (File.Exists(targetPath))
+                {
+                    itemsTaskItems.Add(new XmlNodeTaskItem("Include", targetPath, "ToCommit"));
+                } 
+                else if (File.Exists(target))
+                {
+                    itemsTaskItems.Add(new XmlNodeTaskItem("Include", target, "ToCommit"));
+                }
+                //itemsTaskItems.Add(new XmlNodeTaskItem("Include", targetPath, "ToCommit"));
+            }
 
             task.Targets = itemsTaskItems.ToArray();
 
